@@ -11,9 +11,9 @@
 # @Modules     :python3 -m pip install 
 # @Desc       : 
 '''
-my_str = '123and456'
+my_str = 'safadf'
 
 number = filter(str.isdigit, my_str)
-
+print(''.join(number))
 if __name__ == '__main__':
     pass

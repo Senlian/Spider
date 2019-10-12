@@ -36,18 +36,18 @@ SQL = pw.SQL
 def migrate(migrator, database, fake=False, **kwargs):
     """Write your migrations here."""
 
-    migrator.change_fields('unionlottoextendmodel', prize_3_money=pw.IntegerField(constraints=[SQL("DEFAULT 3000")]),
-        prize_4_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
+    migrator.change_fields('unionlottoextendmodel', prize_5_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
+        prize_1_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
+        prize_5_money=pw.IntegerField(constraints=[SQL("DEFAULT 10")]),
+        prize_1_money=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
         prize_6_money=pw.IntegerField(constraints=[SQL("DEFAULT 5")]),
-        prize_5_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
+        prize_3_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
+        prize_4_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
+        prize_2_money=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
         prize_4_money=pw.IntegerField(constraints=[SQL("DEFAULT 200")]),
         prize_2_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
-        prize_3_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
-        prize_1_money=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
-        prize_6_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
-        prize_2_money=pw.IntegerField(constraints=[SQL("DEFAULT 0")]),
-        prize_5_money=pw.IntegerField(constraints=[SQL("DEFAULT 10")]),
-        prize_1_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]))
+        prize_3_money=pw.IntegerField(constraints=[SQL("DEFAULT 3000")]),
+        prize_6_count=pw.IntegerField(constraints=[SQL("DEFAULT 0")]))
 
 
 def rollback(migrator, database, fake=False, **kwargs):

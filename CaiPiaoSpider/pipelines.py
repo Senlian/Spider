@@ -12,8 +12,6 @@ from CaiPiaoSpider.models import UnionLottoModel, UnionLottoExtendModel, db
 
 class CaipiaospiderPipeline(object):
     def open_spider(self, spider):
-        db.connect()
-        makemigrate(models)
         out_html = os.path.join('output', 'shuangseqiu.html')
         with open(out_html, 'w') as f:
             f.write('<html>\n')
@@ -38,9 +36,11 @@ class CaipiaospiderPipeline(object):
             item['prize_4'] = ['四等奖', '72564', '200']
             item['prize_5'] = ['五等奖', '1361887', '10']
             item['prize_6'] = ['六等奖', '7629153', '5']
+
         self.save_db(item)
         return item
 
+    @db.atomic()
     def save_db(self, item):
         issue = int(item['issue'])
         red_1 = int(item['reds'][0] if item['reds'][0].isdigit else 0)
@@ -50,28 +50,52 @@ class CaipiaospiderPipeline(object):
         red_5 = int(item['reds'][4] if item['reds'][0].isdigit else 0)
         red_6 = int(item['reds'][5] if item['reds'][0].isdigit else 0)
         blue = int(item['blue'])
-        sale = int(''.join(filter(str.isdigit, item['sale'])))
-        residue = int(''.join(filter(str.isdigit, item['residue'])))
-
-
-        print(UnionLottoModel.select().where(UnionLottoModel.issue == issue).count())
+        newNote = False
         try:
-            if not UnionLottoModel.select().where(UnionLottoModel.issue == issue).count():
-                print('---'*100)
-                print(issue,red_1,red_2,red_3,red_4,red_5,red_6,blue)
+            newNote = UnionLottoModel.select().where(UnionLottoModel.issue == issue)
+            if not newNote:
                 newNote = UnionLottoModel.create(issue=issue,
-                                       red1=red_1,
-                                       red2=red_2,
-                                       red3=red_3,
-                                       red4=red_4,
-                                       red5=red_5,
-                                       red6=red_6,
-                                       blue=blue)
-                print('newNote=',newNote)
-                # newNote.save()
-                print('---' * 100)
+                                                 red1=red_1,
+                                                 red2=red_2,
+                                                 red3=red_3,
+                                                 red4=red_4,
+                                                 red5=red_5,
+                                                 red6=red_6,
+                                                 blue=blue)
         except Exception as e:
             raise e
+        sale = self.to_int(item['sale'])
+        residue = self.to_int(item['residue'])
+        url = item['url']
+        dates = item['dates'].split()
+
+        lottery_dates = dates[0].split('：')[1]
+        limite_dates = dates[1].split('：')[1]
+        if newNote and not UnionLottoExtendModel.select().where(UnionLottoExtendModel.issue == newNote.get().issue):
+            try:
+                UnionLottoExtendModel.create(issue=newNote.get().issue,
+                                             sale=sale,
+                                             residue=residue,
+                                             url=url,
+                                             lottery_dates=lottery_dates,
+                                             limite_dates=limite_dates,
+                                             prize_1_count=self.to_int(item['prize_1'][1]),
+                                             prize_2_count=self.to_int(item['prize_2'][1]),
+                                             prize_3_count=self.to_int(item['prize_3'][1]),
+                                             prize_4_count=self.to_int(item['prize_4'][1]),
+                                             prize_5_count=self.to_int(item['prize_5'][1]),
+                                             prize_6_count=self.to_int(item['prize_6'][1]),
+                                             prize_1_money=self.to_int(item['prize_1'][2]),
+                                             prize_2_money=self.to_int(item['prize_2'][2]),
+                                             prize_3_money=self.to_int(item['prize_3'][2]),
+                                             prize_4_money=self.to_int(item['prize_4'][2]),
+                                             prize_5_money=self.to_int(item['prize_5'][2]),
+                                             prize_6_money=self.to_int(item['prize_6'][2]))
+            except Exception as e:
+                raise e
+    def to_int(self, itemStr):
+        digits = ''.join(filter(str.isdigit, itemStr))
+        return  0 if not digits else int(digits)
 
     def save_html(self, item):
         out_html = os.path.join('output', 'shuangseqiu.html')
@@ -96,7 +120,6 @@ class CaipiaospiderPipeline(object):
         return out_html
 
     def close_spider(self, spider):
-        db.close()
         out_html = os.path.join('output', 'shuangseqiu.html')
         with open(out_html, 'a') as f:
             f.write('\t\t</table>\n')

@@ -7,7 +7,7 @@ from peewee import BaseModelSelect, JOIN, fn
 
 __path__ = ['.']
 # peewee文档：http://docs.peewee-orm.com/en/latest/peewee/quickstart.html#quickstart
-print(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'sqlite3.db'))
+
 db = peewee.SqliteDatabase(database=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'sqlite3.db'), pragmas={'journal_mode': 'wal'})
 
 
@@ -46,19 +46,19 @@ class UnionLottoExtendModel(BaseModel):
     lottery_dates = peewee.DateField(verbose_name='开奖日期', null=True)
     limite_dates = peewee.DateField(verbose_name='兑奖截止日期', null=True)
 
-    prize_1_count = peewee.IntegerField(verbose_name='一等奖中奖注数', default=0)
-    prize_2_count = peewee.IntegerField(verbose_name='二等奖中奖注数', default=0)
-    prize_3_count = peewee.IntegerField(verbose_name='三等奖中奖注数', default=0)
-    prize_4_count = peewee.IntegerField(verbose_name='四等奖中奖注数', default=0)
-    prize_5_count = peewee.IntegerField(verbose_name='五等奖中奖注数', default=0)
-    prize_6_count = peewee.IntegerField(verbose_name='六等奖中奖注数', default=0)
+    prize_1_count = peewee.IntegerField(verbose_name='一等奖中奖注数', null=True)
+    prize_2_count = peewee.IntegerField(verbose_name='二等奖中奖注数', null=True)
+    prize_3_count = peewee.IntegerField(verbose_name='三等奖中奖注数', null=True)
+    prize_4_count = peewee.IntegerField(verbose_name='四等奖中奖注数', null=True)
+    prize_5_count = peewee.IntegerField(verbose_name='五等奖中奖注数', null=True)
+    prize_6_count = peewee.IntegerField(verbose_name='六等奖中奖注数', null=True)
 
-    prize_1_money = peewee.IntegerField(verbose_name='一等奖单注奖金（元）', default=0)
-    prize_2_money = peewee.IntegerField(verbose_name='二等奖单注奖金（元）', default=0)
-    prize_3_money = peewee.IntegerField(verbose_name='三等奖单注奖金（元）', default=3000)
-    prize_4_money = peewee.IntegerField(verbose_name='四等奖单注奖金（元）', default=200)
-    prize_5_money = peewee.IntegerField(verbose_name='五等奖单注奖金（元）', default=10)
-    prize_6_money = peewee.IntegerField(verbose_name='六等奖单注奖金（元）', default=5)
+    prize_1_money = peewee.IntegerField(verbose_name='一等奖单注奖金（元）', null=True)
+    prize_2_money = peewee.IntegerField(verbose_name='二等奖单注奖金（元）', null=True)
+    prize_3_money = peewee.IntegerField(verbose_name='三等奖单注奖金（元）', null=True)
+    prize_4_money = peewee.IntegerField(verbose_name='四等奖单注奖金（元）', null=True)
+    prize_5_money = peewee.IntegerField(verbose_name='五等奖单注奖金（元）', null=True)
+    prize_6_money = peewee.IntegerField(verbose_name='六等奖单注奖金（元）', null=True)
 
 
 if __name__ == '__main__':

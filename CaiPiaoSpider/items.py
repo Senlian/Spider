@@ -8,6 +8,7 @@
 import scrapy
 import peewee
 
+
 class CaipiaospiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
@@ -17,11 +18,11 @@ class CaipiaospiderItem(scrapy.Item):
     url = scrapy.Field()
     sale = scrapy.Field()
     residue = scrapy.Field()
-    prize_1 =scrapy.Field()
-    prize_2 =scrapy.Field()
-    prize_3 =scrapy.Field()
-    prize_4 =scrapy.Field()
-    prize_5 =scrapy.Field()
-    prize_6 =scrapy.Field()
-
+    prize_1 = scrapy.Field()
+    prize_2 = scrapy.Field()
+    prize_3 = scrapy.Field()
+    prize_4 = scrapy.Field()
+    prize_5 = scrapy.Field()
+    prize_6 = scrapy.Field()
+    dates = scrapy.Field()
 
