@@ -31,9 +31,10 @@ import re
 class shuangseqiu():
 
     def __init__(self):
-        self.quanzhong = [2.618, 1.618,
-                          4.236]  # 权重，分别为一周统计数据，一月统计数据，一年统计数据与完全随机权重的比值，表示对最后选出的号码的影响力大小，此数据依据最伟大的黄金分割点制定。
-        # self.quanzhong = [1,1,1]
+        # self.quanzhong = [2.618, 1.618, 4.236]
+        # 权重，分别为一周统计数据，一月统计数据，一年统计数据与完全随机权重的比值，
+        # 表示对最后选出的号码的影响力大小，此数据依据最伟大的黄金分割点制定。
+        self.quanzhong = [10,3,5]
         self.qishu = [4, 13, 153]  # 一周、一月、一年的彩票期数
         self.data_long = ['W', 'M', 'Y']  # 期数时间范围的长度表示
         self.fle = '123.txt'  # 打开彩票文件
@@ -69,7 +70,6 @@ class shuangseqiu():
         # 年数据存储
 
         for i in range(6):
-
             self.__count__(ball_lst[i], self.red_dict, data_long)
         self.__count__(ball_lst[6], self.blue_dict, data_long)
         # print(self.red_dict)
@@ -224,3 +224,5 @@ if __name__ == '__main__':
     b = shuangseqiu()
     b.init_data()
     print_all(b)
+    import pandas
+    pandas.Series

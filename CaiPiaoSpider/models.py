@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import peewee,os
+import os
+import peewee
 
 from playhouse.sqlite_ext import SqliteExtDatabase
 from peewee import BaseModelSelect, JOIN, fn
 
 __path__ = ['.']
 # peewee文档：http://docs.peewee-orm.com/en/latest/peewee/quickstart.html#quickstart
-
-db = peewee.SqliteDatabase(database=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'sqlite3.db'), pragmas={'journal_mode': 'wal'})
+__all__ = ['db', 'UnionLottoModel', 'UnionLottoExtendModel']
+db = SqliteExtDatabase(database=os.path.join(os.path.dirname(os.path.realpath(__file__)), 'sqlite3.db'),
+                       pragmas={'journal_mode': 'wal'})
 
 
 class BaseModel(peewee.Model):
