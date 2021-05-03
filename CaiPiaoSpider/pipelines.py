@@ -43,12 +43,12 @@ class CaipiaospiderPipeline(object):
     @db.atomic()
     def save_db(self, item):
         issue = int(item['issue'])
-        red_1 = int(item['reds'][0] if item['reds'][0].isdigit else 0)
-        red_2 = int(item['reds'][1] if item['reds'][0].isdigit else 0)
-        red_3 = int(item['reds'][2] if item['reds'][0].isdigit else 0)
-        red_4 = int(item['reds'][3] if item['reds'][0].isdigit else 0)
-        red_5 = int(item['reds'][4] if item['reds'][0].isdigit else 0)
-        red_6 = int(item['reds'][5] if item['reds'][0].isdigit else 0)
+        red_1 = int(item['reds'][0] if item['reds'][0].isdigit() else 0)
+        red_2 = int(item['reds'][1] if item['reds'][1].isdigit() else 0)
+        red_3 = int(item['reds'][2] if item['reds'][2].isdigit() else 0)
+        red_4 = int(item['reds'][3] if item['reds'][3].isdigit() else 0)
+        red_5 = int(item['reds'][4] if item['reds'][4].isdigit() else 0)
+        red_6 = int(item['reds'][5] if item['reds'][5].isdigit() else 0)
         blue = int(item['blue'])
         newNote = False
         try:
